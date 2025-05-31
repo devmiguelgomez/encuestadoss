@@ -6,7 +6,7 @@ const VotarEncuesta = () => {
   const navigate = useNavigate();
   const [pregunta, setPregunta] = useState('');
   const [opciones, setOpciones] = useState([]);
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState('');
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,7 +19,7 @@ const VotarEncuesta = () => {
     // Obtener datos de la encuesta
     const fetchEncuesta = async () => {
       try {
-        const res = await fetch(`/api/encuestas/${codigo}`);
+        const res = await fetch(`http://localhost:5000/api/resultados/${codigo}`);
         if (!res.ok) throw new Error('No se pudo cargar la encuesta');
         const data = await res.json();
         setPregunta(data.pregunta);
@@ -35,16 +35,20 @@ const VotarEncuesta = () => {
 
   const handleVotar = async (e) => {
     e.preventDefault();
-    if (opcionSeleccionada === null) {
+    if (!opcionSeleccionada) {
       setError('Selecciona una opción para votar');
       return;
     }
     try {
-      const res = await fetch(`/api/encuestas/${codigo}/votar`, {
+      const res = await fetch(`http://localhost:5000/api/votar/${codigo}/votar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ opcion: opcionSeleccionada })
       });
+      if (res.status === 403) {
+        setError('Ya has votado en esta encuesta desde esta IP.');
+        return;
+      }
       if (!res.ok) throw new Error('Error al enviar el voto');
       localStorage.setItem(`votado-${codigo}`, 'true');
       navigate(`/resultados/${codigo}`);
@@ -62,21 +66,21 @@ const VotarEncuesta = () => {
         <div className="col-12 col-md-10 col-lg-8 col-xl-6">
           <div className="card shadow" style={{ maxWidth: '700px', margin: '0 auto' }}>
             <div className="card-body p-5">
-              <h2 className="text-center mb-4">{pregunta}</h2>
+              <h2 className="text-center mb-4" style={{wordBreak: 'break-word', whiteSpace: 'normal'}}>{pregunta}</h2>
               <form onSubmit={handleVotar}>
                 <div className="mb-4">
-                  {opciones.map((op, idx) => (
-                    <div className="form-check mb-2" key={idx}>
+                  {opciones.map((op) => (
+                    <div className="form-check mb-2" key={op._id}>
                       <input
                         className="form-check-input"
                         type="radio"
                         name="opcion"
-                        id={`opcion${idx}`}
-                        value={idx}
-                        checked={opcionSeleccionada === idx}
-                        onChange={() => setOpcionSeleccionada(idx)}
+                        id={`opcion${op._id}`}
+                        value={op._id}
+                        checked={opcionSeleccionada === op._id}
+                        onChange={() => setOpcionSeleccionada(op._id)}
                       />
-                      <label className="form-check-label" htmlFor={`opcion${idx}`}>{op}</label>
+                      <label className="form-check-label" htmlFor={`opcion${op._id}`}>{op.texto}</label>
                     </div>
                   ))}
                 </div>

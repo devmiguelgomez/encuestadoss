@@ -7,6 +7,7 @@ const CrearEncuesta = () => {
   const [opciones, setOpciones] = useState(['', '']);
   const [codigoUnico, setCodigoUnico] = useState('');
   const [error, setError] = useState('');
+  const [copiado, setCopiado] = useState(false);
 
   const handlePreguntaChange = (e) => {
     setPregunta(e.target.value);
@@ -56,7 +57,7 @@ const CrearEncuesta = () => {
     }
 
     try {
-      const response = await fetch('/api/encuestas', {
+      const response = await fetch('http://localhost:5000/api/crear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,6 +79,16 @@ const CrearEncuesta = () => {
       setError('');
     } catch (error) {
       setError('Error al crear la encuesta. Por favor, intenta de nuevo.');
+    }
+  };
+
+  const urlVotacion = codigoUnico ? `${window.location.origin}/votar/${codigoUnico}` : '';
+
+  const copiarUrl = async () => {
+    if (urlVotacion) {
+      await navigator.clipboard.writeText(urlVotacion);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
     }
   };
 
@@ -151,6 +162,24 @@ const CrearEncuesta = () => {
                   <div className="alert alert-success mb-4" role="alert">
                     <h4 className="alert-heading">¡Encuesta creada exitosamente!</h4>
                     <p className="mb-0">Código único: <strong>{codigoUnico}</strong></p>
+                    <div className="mt-3">
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={urlVotacion}
+                          readOnly
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary"
+                          onClick={copiarUrl}
+                        >
+                          <i className="bi bi-clipboard"></i> Copiar URL
+                        </button>
+                      </div>
+                      {copiado && <div className="text-success mt-2">¡URL copiada!</div>}
+                    </div>
                   </div>
                 )}
 
