@@ -107,7 +107,7 @@ backend/
     votos: Number
   }],
   codigo: String,
-  creadaEn: Date
+  creadaEn: Date,
   ipsVotantes:: [String]
 }
 ```
