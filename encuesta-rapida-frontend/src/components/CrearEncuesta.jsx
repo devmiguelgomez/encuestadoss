@@ -8,6 +8,8 @@ const CrearEncuesta = () => {
   const [codigoUnico, setCodigoUnico] = useState('');
   const [error, setError] = useState('');
   const [copiado, setCopiado] = useState(false);
+  const [agregando, setAgregando] = useState(false);
+  const [eliminando, setEliminando] = useState(-1);
 
   const handlePreguntaChange = (e) => {
     setPregunta(e.target.value);
@@ -82,7 +84,7 @@ const CrearEncuesta = () => {
     }
   };
 
-  const urlVotacion = codigoUnico ? `${window.location.origin}/votar/${codigoUnico}` : '';
+  const urlVotacion = codigoUnico ? `${window.location.origin}/encuesta/${codigoUnico}` : '';
 
   const copiarUrl = async () => {
     if (urlVotacion) {
@@ -92,11 +94,25 @@ const CrearEncuesta = () => {
     }
   };
 
+  const agregarOpcionAnim = () => {
+    setAgregando(true);
+    agregarOpcion();
+    setTimeout(() => setAgregando(false), 400);
+  };
+
+  const eliminarOpcionAnim = (index) => {
+    setEliminando(index);
+    setTimeout(() => {
+      eliminarOpcion(index);
+      setEliminando(-1);
+    }, 400);
+  };
+
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
-        <div className="col-12 col-md-20 col-lg-14 col-xl-10">
-          <div className="card shadow" style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div className="col-12 col-md-10 col-lg-8 col-xl-7">
+          <div className="card shadow-lg border-0" style={{ maxWidth: '900px', margin: '0 auto', background: '#f8fafc' }}>
             <div className="card-body p-5">
               <h2 className="text-center mb-4">Crear Nueva Encuesta</h2>
               <form onSubmit={handleSubmit}>
@@ -109,7 +125,7 @@ const CrearEncuesta = () => {
                     onChange={handlePreguntaChange}
                     placeholder="Ingresa tu pregunta"
                     rows={1}
-                    style={{ resize: 'none', overflow: 'hidden' }}
+                    style={{ resize: 'none', overflow: 'hidden', background: '#fff' }}
                     onInput={e => {
                       e.target.style.height = 'auto';
                       e.target.style.height = e.target.scrollHeight + 'px';
@@ -120,19 +136,21 @@ const CrearEncuesta = () => {
                 <div className="mb-4">
                   <label className="form-label">Opciones:</label>
                   {opciones.map((opcion, index) => (
-                    <div key={index} className="input-group mb-2">
+                    <div key={index} className={`input-group mb-2 animate__animated ${eliminando === index ? 'animate__fadeOutLeft' : ''}`.trim()}>
                       <input
                         type="text"
                         className="form-control"
                         value={opcion}
                         onChange={(e) => handleOpcionChange(index, e.target.value)}
                         placeholder={`Opción ${index + 1}`}
+                        style={{ background: '#fff' }}
                       />
                       {opciones.length > 2 && (
                         <button
                           type="button"
-                          onClick={() => eliminarOpcion(index)}
+                          onClick={() => eliminarOpcionAnim(index)}
                           className="btn btn-danger"
+                          title="Eliminar opción"
                         >
                           <i className="bi bi-trash"></i>
                         </button>
@@ -144,8 +162,9 @@ const CrearEncuesta = () => {
                 {opciones.length < 4 && (
                   <button
                     type="button"
-                    onClick={agregarOpcion}
-                    className="btn btn-success w-100 mb-4"
+                    onClick={agregarOpcionAnim}
+                    className={`btn btn-success w-100 mb-4 animate__animated ${agregando ? 'animate__pulse' : ''}`.trim()}
+                    title="Agregar opción"
                   >
                     <i className="bi bi-plus-circle me-2"></i>
                     Agregar Opción
@@ -166,7 +185,7 @@ const CrearEncuesta = () => {
                       <div className="input-group">
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control bg-light"
                           value={urlVotacion}
                           readOnly
                         />
@@ -174,6 +193,7 @@ const CrearEncuesta = () => {
                           type="button"
                           className="btn btn-outline-primary"
                           onClick={copiarUrl}
+                          title="Copiar URL de votación"
                         >
                           <i className="bi bi-clipboard"></i> Copiar URL
                         </button>
@@ -183,8 +203,8 @@ const CrearEncuesta = () => {
                   </div>
                 )}
 
-                <button type="submit" className="btn btn-primary w-100">
-                  Crear Encuesta
+                <button type="submit" className="btn btn-primary w-100 shadow-sm">
+                  <i className="bi bi-send me-2"></i>Crear Encuesta
                 </button>
               </form>
             </div>
