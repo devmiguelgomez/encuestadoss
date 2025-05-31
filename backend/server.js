@@ -12,6 +12,7 @@ app.use(express.json());
 
 // Aquí montarás tus rutas
 app.use("/api/crear", require("./routes/createEncuesta"));
+app.use("/api/votar", require("./routes/votarEncuesta"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
