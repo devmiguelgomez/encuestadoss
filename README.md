@@ -174,15 +174,15 @@ node server.js
 ## 👥 Equipo de Desarrollo
 
 ### Integrantes
-- **Nombre Apellido**
+- **Miguel Gomez**
   - Rol: Desarrollador Frontend
   - GitHub: [@devmiguelgomez](https://github.com/devmiguelgomez)
 
-- **Nombre Apellido**
+- **Jairo Moran**
   - Rol: Desarrollador Backend
   - GitHub: [@jairomoran01](https://github.com/jairomoran01)
 
-- **Nombre Apellido**
+- **Miguel Gomez**
   - Rol: Diseñador UI/UX
   - GitHub: [@devmiguelgomez](https://github.com/devmiguelgomez)
     
