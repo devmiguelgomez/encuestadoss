@@ -59,7 +59,7 @@ const CrearEncuesta = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/crear', {
+      const response = await fetch('https://encuestadoss-backend.vercel.app/api/crear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
