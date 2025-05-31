@@ -171,3 +171,26 @@ node server.js
 - Frontend (Vercel): [https://encuesta-rapida.vercel.app](https://encuesta-rapida.vercel.app)
 - Backend (Vercel): [https://encuesta-rapida-api.onrender.com](https://encuesta-rapida-api.onrender.com)
 
+## 👥 Equipo de Desarrollo
+
+### Integrantes
+- **Nombre Apellido**
+  - Rol: Desarrollador Frontend
+  - GitHub: [@devmiguelgomez](https://github.com/devmiguelgomez)
+
+- **Nombre Apellido**
+  - Rol: Desarrollador Backend
+  - GitHub: [@jairomoran01](https://github.com/jairomoran01)
+
+- **Nombre Apellido**
+  - Rol: Diseñador UI/UX
+  - GitHub: [@devmiguelgomez](https://github.com/devmiguelgomez)
+    
+### Responsabilidades
+- Frontend: Desarrollo de la interfaz de usuario, componentes React, y experiencia de usuario
+- Backend: Desarrollo de la API, base de datos, y lógica de negocio
+- Diseño: Diseño de la interfaz, experiencia de usuario, y assets gráficos
+
+### Contribuciones
+Cada miembro del equipo ha contribuido significativamente al desarrollo del proyecto, trabajando en diferentes aspectos según sus especialidades y responsabilidades asignadas.
+
