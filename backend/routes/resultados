@@ -13,6 +13,7 @@ if (!encuesta) return res.status(404).json({ msg: "Encuesta no encontrada" });
 res.json({
   pregunta: encuesta.pregunta,
   opciones: encuesta.opciones.map(opt => ({
+    _id: opt._id,
     texto: opt.texto,
     votos: opt.votos
   }))

@@ -5,19 +5,17 @@ const ResultadosEncuesta = () => {
   const { codigo } = useParams();
   const [pregunta, setPregunta] = useState('');
   const [opciones, setOpciones] = useState([]);
-  const [votos, setVotos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchResultados = async () => {
       try {
-        const res = await fetch(`/api/encuestas/${codigo}/resultados`);
+        const res = await fetch(`http://localhost:5000/api/resultados/${codigo}`);
         if (!res.ok) throw new Error('No se pudieron cargar los resultados');
         const data = await res.json();
         setPregunta(data.pregunta);
         setOpciones(data.opciones);
-        setVotos(data.votos);
       } catch (err) {
         setError('No se pudieron cargar los resultados');
       } finally {
@@ -27,7 +25,7 @@ const ResultadosEncuesta = () => {
     fetchResultados();
   }, [codigo]);
 
-  const totalVotos = votos.reduce((acc, v) => acc + v, 0);
+  const totalVotos = opciones.reduce((acc, op) => acc + (op.votos || 0), 0);
 
   if (cargando) return <div className="text-center mt-5">Cargando resultados...</div>;
   if (error) return <div className="alert alert-danger mt-5 text-center">{error}</div>;
@@ -41,12 +39,12 @@ const ResultadosEncuesta = () => {
               <h2 className="text-center mb-4">Resultados de la Encuesta</h2>
               <h4 className="mb-4 text-center">{pregunta}</h4>
               {opciones.map((op, idx) => {
-                const cantidad = votos[idx] || 0;
+                const cantidad = op.votos || 0;
                 const porcentaje = totalVotos > 0 ? ((cantidad / totalVotos) * 100).toFixed(1) : 0;
                 return (
-                  <div key={idx} className="mb-4">
+                  <div key={op._id || idx} className="mb-4">
                     <div className="d-flex justify-content-between mb-1">
-                      <span>{op}</span>
+                      <span>{op.texto}</span>
                       <span>{cantidad} votos ({porcentaje}%)</span>
                     </div>
                     <div className="progress" style={{ height: '28px' }}>
