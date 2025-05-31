@@ -21,7 +21,7 @@ const ResultadosEncuesta = () => {
   useEffect(() => {
     const fetchResultados = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/resultados/${codigo}`);
+        const res = await fetch(`https://encuestadoss-backend.vercel.app/api/resultados/${codigo}`);
         if (!res.ok) throw new Error('No se pudieron cargar los resultados');
         const data = await res.json();
         setPregunta(data.pregunta);

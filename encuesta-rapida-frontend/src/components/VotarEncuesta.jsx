@@ -21,7 +21,7 @@ const VotarEncuesta = () => {
     // Obtener datos de la encuesta
     const fetchEncuesta = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/resultados/${codigo}`);
+        const res = await fetch(`https://encuestadoss-backend.vercel.app/api/resultados/${codigo}`);
         if (!res.ok) throw new Error('No se pudo cargar la encuesta');
         const data = await res.json();
         setPregunta(data.pregunta);
@@ -44,7 +44,7 @@ const VotarEncuesta = () => {
     setVotando(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/votar/${codigo}/votar`, {
+      const res = await fetch(`https://encuestadoss-backend.vercel.app/api/votar/${codigo}/votar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ opcion: opcionSeleccionada })
