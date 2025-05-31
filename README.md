@@ -168,8 +168,8 @@ node server.js
 - Github: [https://github.com/devmiguelgomez/encuestadoss](https://github.com/devmiguelgomez/encuestadoss)
 
 ### Despliegue
-- Frontend (Vercel): [https://encuesta-rapida.vercel.app](https://encuesta-rapida.vercel.app)
-- Backend (Vercel): [https://encuesta-rapida-api.onrender.com](https://encuesta-rapida-api.onrender.com)
+- Frontend (Vercel): [https://encuestadoss.vercel.app](https://encuestadoss.vercel.app)
+- Backend (Vercel): [https://encuestadoss-backend.vercel.app/](https://encuestadoss-backend.vercel.app/)
 
 ## 👥 Equipo de Desarrollo
 
