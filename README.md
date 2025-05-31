@@ -160,3 +160,13 @@ node server.js
 - El sistema está diseñado para ser escalable
 - Se implementan buenas prácticas de desarrollo
 - Se mantiene un código limpio y documentado
+
+## 🔗 Enlaces del Proyecto
+
+### Repositorios
+- Github: [https://github.com/devmiguelgomez/encuestadoss](https://github.com/devmiguelgomez/encuestadoss)
+
+### Despliegue
+- Frontend (Vercel): [https://encuesta-rapida.vercel.app](https://encuesta-rapida.vercel.app)
+- Backend (Vercel): [https://encuesta-rapida-api.onrender.com](https://encuesta-rapida-api.onrender.com)
+
